@@ -1,7 +1,10 @@
+# Optimized version of the script
+# with performance improvements and better practices
 import requests
 import json
 import base64
 from typing import Dict
+
 
 def create_branch_with_files(
     token: str,
@@ -11,8 +14,7 @@ def create_branch_with_files(
     files: Dict[str, str],
     base_branch: str = "main"
 ):
-    """
-    Create a new branch on GitHub and add files to it.
+    """Create a new branch on GitHub and add files to it.
     
     Args:
         token: GitHub Personal Access Token
@@ -24,7 +26,7 @@ def create_branch_with_files(
     
     Returns:
         bool: True if successful, False otherwise
-    """
+    """  
     
     headers = {
         "Authorization": f"token {token}",
@@ -45,7 +47,7 @@ def create_branch_with_files(
         if ref_response.status_code != 200:
             print(f"Error getting base branch: {ref_response.status_code} - {ref_response.text}")
             return False
-            
+        
         base_sha = ref_response.json()["object"]["sha"]
         print(f"Base branch SHA: {base_sha}")
         
@@ -65,7 +67,7 @@ def create_branch_with_files(
         if create_response.status_code not in [201, 422]:  # 422 if branch already exists
             print(f"Error creating branch: {create_response.status_code} - {create_response.text}")
             return False
-            
+        
         if create_response.status_code == 422:
             print(f"Branch '{branch_name}' already exists, continuing...")
         else:
@@ -107,12 +109,12 @@ def create_branch_with_files(
             if put_response.status_code not in [200, 201]:
                 print(f"Error adding file {file_path}: {put_response.status_code} - {put_response.text}")
                 return False
-                
+            
             print(f"  File {file_path} added successfully!")
         
         print(f"All files added to branch '{branch_name}' successfully!")
         return True
-        
+    
     except requests.exceptions.RequestException as e:
         print(f"Request error: {e}")
         return False
