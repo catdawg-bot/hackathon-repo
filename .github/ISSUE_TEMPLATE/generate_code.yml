@@ -1,0 +1,20 @@
+name: Code Generation Request
+description: Generate code based on your input!
+title: "[Code Generation Request]"
+labels: ["generate_code"]
+assignees:
+  - catdawg-bot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please enter in the details of your request!
+
+  - type: input
+    id: code_input
+    attributes:
+      label: What code do you want generated?
+      description: Please provide a detailed description on the code you would like generated, Include language, framework, and any specific requirements.
+      placeholder: ex. "Generate a Python script that connects to a MySQL database and retrieves user data."
+    validations:
+      required: true

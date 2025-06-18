@@ -1,0 +1,20 @@
+name: Optimization Request
+description: Create an Optimized version of a provided file!
+title: "[Optimization Request]"
+labels: ["optimize_code"]
+assignees:
+  - catdawg-bot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please enter in the details of your request!
+
+  - type: input
+    id: url
+    attributes:
+      label: URL for Optimization
+      description: enter in the url file you want optimized
+      placeholder: ex. https://github.com/TheBradKaiser/catdawg/blob/testbranch/cnn_scrape.py
+    validations:
+      required: true

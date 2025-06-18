@@ -1,0 +1,20 @@
+name: Readme Generator
+description: Create a detailed readme file for your repo!
+title: "[ReadMe Request]"
+labels: ["readme_generator"]
+assignees:
+  - catdawg-bot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please enter in the details of your request!
+
+  - type: input
+    id: url
+    attributes:
+      label: URL of Repo
+      description: enter in the url of the Repo you want a ReadMe.md for
+      placeholder: ex. https://github.com/catdawg-bot/hackathon-repo
+    validations:
+      required: true
