@@ -1,0 +1,38 @@
+name: Code Analysis
+description: Analyze a repo or file on github!
+title: "[Code Analysis]"
+labels: ["code_analysis"]
+assignees:
+  - catdawg-bot
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please enter in the details of your request!
+
+  - type: dropdown
+    id: fileOrRepo
+    attributes:
+      label: File or Repo
+      description: Please select what type of analysis you require
+      options:
+        - File
+        - Repo
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL for Analysis
+      description: enter in the url to the repo or file you like analyzed
+      placeholder: ex. https://github.com/catdawg-bot/hackathon-repo
+    validations:
+      required: true
+      
+  - type: input
+    id: otherInfo
+    attributes:
+      label: Specific analysis required?
+      description: If you would like your analysis to be more tailored toward any specific topic or scope, put it here!
+      placeholder: ex. Explain this repo to me like ive never used Java before
