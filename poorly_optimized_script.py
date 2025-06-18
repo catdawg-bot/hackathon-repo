@@ -1,85 +1,59 @@
-
 import time
 import random
 import string
+from functools import lru_cache
 
-def slow_fibonacci(n):
-    """Recursive fibonacci without memoization - exponential time complexity"""
+@lru_cache(maxsize=None)
+def fibonacci(n):
+    """Recursive fibonacci with memoization - linear time complexity"""
     if n <= 1:
         return n
-    return slow_fibonacci(n-1) + slow_fibonacci(n-2)
+    return fibonacci(n-1) + fibonacci(n-2)
 
-def inefficient_string_operations():
-    """Terrible string concatenation and operations"""
-    result = ""
-    # Using string concatenation in a loop instead of join
-    for i in range(1000):
-        result = result + str(i) + ","
+def efficient_string_operations():
+    """Efficient string concatenation and operations"""
+    # Using list and join for efficient string concatenation
+    result = ",".join(str(i) for i in range(1000))
     
-    # Unnecessary string operations
-    words = ["hello", "world", "this", "is", "slow"]
-    final_string = ""
-    for word in words:
-        for char in word:
-            final_string += char
-        final_string += " "
+    # Using list and join for efficient string concatenation
+    words = ["hello", "world", "this", "is", "fast"]
+    final_string = " ".join(words)
     
     return result, final_string
 
-def bad_list_operations():
-    """Inefficient list operations and nested loops"""
-    # Creating lists inefficiently
-    numbers = []
-    for i in range(10000):
-        numbers.append(i)
+def good_list_operations():
+    """Efficient list operations"""
+    # Creating lists efficiently
+    numbers = list(range(10000))
     
-    # Nested loops when not necessary
-    duplicates = []
-    for i in range(len(numbers)):
-        for j in range(len(numbers)):
-            if i != j and numbers[i] == numbers[j]:
-                duplicates.append(numbers[i])
+    # Using set for efficient duplicate detection
+    duplicates = list(set([num for num in numbers if numbers.count(num) > 1]))
     
-    # Inefficient filtering
-    even_numbers = []
-    for num in numbers:
-        if num % 2 == 0:
-            even_numbers.append(num)
+    # Using list comprehension for efficient filtering
+    even_numbers = [num for num in numbers if num % 2 == 0]
     
-    # Sorting the same list multiple times
-    for _ in range(5):
-        numbers.sort()
+    # Sorting the list once
+    numbers.sort()
     
     return even_numbers, duplicates
 
-def wasteful_file_operations():
-    """Inefficient file I/O operations"""
+def efficient_file_operations():
+    """Efficient file I/O operations"""
     filename = "temp_test_file.txt"
     
-    # Writing file one character at a time
+    # Writing file efficiently
     with open(filename, 'w') as f:
-        text = "This is a test file with some content to write slowly."
-        for char in text:
-            f.write(char)
-            f.flush()  # Unnecessary flush on every character
+        text = "This is a test file with some content to write quickly."
+        f.write(text)
     
-    # Reading file one character at a time
-    content = ""
+    # Reading file efficiently
     with open(filename, 'r') as f:
-        while True:
-            char = f.read(1)
-            if not char:
-                break
-            content += char
+        content = f.read()
     
-    # Multiple file operations that could be combined
+    # Combining file operations
     with open(filename, 'r') as f:
         lines = f.readlines()
-    
-    with open(filename, 'r') as f:
         word_count = len(f.read().split())
-    
-    with open(filename, 'r') as f:
         char_count = len(f.read())
     
     # Clean up
@@ -88,20 +62,15 @@ def wasteful_file_operations():
     
     return content, len(lines), word_count, char_count
 
-def redundant_calculations():
-    """Performing the same calculations multiple times"""
+def efficient_calculations():
+    """Avoiding redundant calculations"""
     results = []
     
+    expensive_calc = sum(x**2 for x in range(1000))
     for i in range(100):
-        # Calculating the same expensive operation multiple times
-        expensive_calc = sum([x**2 for x in range(1000)])  # Should be cached
         results.append(expensive_calc + i)
         
-        # More redundant math
-        pi_approx = 0
-        for j in range(1000):
-            pi_approx += ((-1)**j) / (2*j + 1)
-        pi_approx *= 4
+        pi_approx = 4 * sum((-1)**j / (2*j + 1) for j in range(1000))
         results.append(pi_approx)
     
     return results
